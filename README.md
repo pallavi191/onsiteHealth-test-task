@@ -1,2 +1,159 @@
-# onsiteHealth-test-task
- 
+# Patient Management System
+
+## Setup Instructions
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+
+- **Node.js**
+- **MongoDB**
+- **npm**
+
+### Installation
+
+1. Clone this repository:
+    ```bash
+    git clone git@github.com:pallavi191/onsiteHealth-test-task.git
+    cd onsiteHealth-test-task
+    ```
+
+2. Install the backend dependencies (Node.js, Express.js):
+    ```bash
+    cd backend
+    npm install
+    ```
+
+3. Set up the environment variables:
+
+    Create a `local.env` file in the `backend` directory with the following content:
+    ```bash
+    DB_URL=mongodb://localhost:27017/patients-management
+    PORT=5000
+    ```
+
+    Replace `DB_URL` with your MongoDB connection string if you're using a cloud-based MongoDB service.
+
+4. Start the backend server:
+    ```bash
+    npm start or npm run dev
+    ```
+
+    The server will be running on `http://localhost:5000`.
+
+5. Install the frontend dependencies (React.js with Bootstrap):
+    ```bash
+    cd ../frontend
+    npm install
+    ```
+
+6. Start the frontend React application:
+    ```bash
+    npm start
+    ```
+
+    The React application will be running on `http://localhost:3000`.
+
+## API Documentation
+
+### Base URL
+The base URL for the API is `http://localhost:5000/api`.
+
+### Endpoints
+
+1. **GET /api/patients**
+   - Retrieves all patient records with pagination.
+   - **Query Parameters:**
+     - `page` (optional) - Page number (default is `1`).
+     - `limit` (optional) - Number of records per page (default is `10`).
+   - **Example:**
+     ```bash
+     GET http://localhost:5000/api/patients?page=1&limit=10
+     ```
+
+2. **GET /api/patients/:patientId**
+   - Retrieves a specific patient record by their unique ID.
+   - **URL Parameters:**
+     - `patientId` - The unique ID of the patient.
+   - **Example:**
+     ```bash
+     GET http://localhost:5000/api/patients/67ea37c8922f3b56aae6a6ec
+     ```
+
+3. **POST /api/patients**
+   - Creates a new patient record.
+   - **Request Body:**
+     - `firstName` (string) - Patient's first name.
+     - `lastName` (string) - Patient's last name.
+     - `dateOfBirth` (date) - Patient's dob.
+     - `gender` (string) - Patient's gender.
+     - `contactNumber` (number) - Patient's contact number.
+     - `email` (string) - Patient's email address..
+     - `address` (string) - Patient's address.
+     - `emergencyContact` (number) - Patient's emergency number.
+   - **Example:**
+     ```bash
+     POST http://localhost:5000/api/patients
+     Content-Type: application/json
+     {
+        "firstName": "pallavi",
+        "lastName": "patil",
+        "dateOfBirth": "2025-03-29T18:30:00.000Z",
+        "gender": "Female",
+        "contactNumber": 8452155789,
+        "email": "pallavi@gmail.com",
+        "address": "surat",
+        "emergencyContact": "8452155789"
+     }
+     ```
+
+4. **PUT /api/patients/:patientId**
+   - Updates an existing patient record.
+   - **URL Parameters:**
+     - `patientId` - The unique ID of the patient.
+   - **Request Body:**
+     - Any fields that you want to update, such as `firstName`, `lastName`, `dateOfBirth`, `gender`, `contactNumber`, `email`, `address`, `emergencyContact`, etc.
+   - **Example:**
+     ```bash
+     PUT http://localhost:5000/api/patients/67ea37c8922f3b56aae6a6ec
+     Content-Type: application/json
+     {
+        "firstName": "pallavi",
+        "lastName": "patil",
+        "dateOfBirth": "2025-03-29T18:30:00.000Z",
+        "gender": "Female",
+        "contactNumber": 8452155789,
+        "email": "pallavi@gmail.com",
+        "emergencyContact": "8452155789"
+        "address": "456 New Address St, City, Country"
+     }
+     ```
+
+5. **DELETE /api/patients/:patientId**
+   - Removes a specific patient record by their unique ID.
+   - **URL Parameters:**
+     - `patientId` - The unique ID of the patient to be deleted.
+   - **Example:**
+     ```bash
+     DELETE http://localhost:5000/api/patients/67ea37c8922f3b56aae6a6ec
+     ```
+
+## Technologies Used
+
+- **Backend:**
+  - **Node.js** - JavaScript runtime environment for the backend server.
+  - **Express.js** - Web framework for building RESTful APIs.
+  - **MongoDB** - NoSQL database for storing patient records.
+
+- **Frontend:**
+  - **React.js** - JavaScript library for building user interfaces.
+  - **Bootstrap** - Frontend framework for responsive design.
+
+## Assumptions Made
+
+- The application assumes that MongoDB is properly set up and running either locally or via a cloud service (such as MongoDB Atlas).
+- The API expects valid and properly formatted data (e.g., correct email format, non-empty required fields) when creating or updating records.
+- Pagination parameters are optional, and the API will return a default set of results if no pagination parameters are provided.
+- The patient records are identified by a unique ID generated by MongoDB.
+
+---
