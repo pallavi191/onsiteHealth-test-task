@@ -29,7 +29,6 @@ const PatientList = () => {
     fetchPatients(currentPage, itemsPerPage);
   }, [currentPage, itemsPerPage]); // 🔥 Runs when `currentPage` OR `itemsPerPage` changes
   
-
   const fetchPatients = async (currentPage, itemsPerPage) => {
     console.log("itemsPerPage: ", itemsPerPage)
 
@@ -37,7 +36,7 @@ const PatientList = () => {
       const response = await getPatients(currentPage, itemsPerPage);
       setPatients(response.data.data.patients);
       setCurrentPage(response.data.data.currentPage);
-      setTotalPages(response.data.data.totalPatients);
+      setTotalPages(Math.ceil(response.data.data.totalPatients / itemsPerPage));
     } catch (err) {
       console.error("Error fetching patients", err);
     }
@@ -67,7 +66,7 @@ const PatientList = () => {
   const handlePageChange = (currentPage) => {
     setCurrentPage(currentPage);
   };
-
+ 
   const handleItemsPerPageChange = (event) => {
     setItemsPerPage(Number(event.target.value)); // Update itemsPerPage
     setCurrentPage(1); // Reset to first page
@@ -158,7 +157,7 @@ const PatientList = () => {
               ))}
               <Pagination.Next
                 onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
+                disabled={currentPage >= totalPages}
               />
           </Pagination>
           </div>
